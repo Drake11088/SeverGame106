@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace lab2.Models
+namespace SeverGame106.Models
 {
     public class GameLevel
     {

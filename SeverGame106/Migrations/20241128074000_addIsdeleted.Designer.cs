@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServerGame106.Data;
 
@@ -11,9 +12,11 @@ using ServerGame106.Data;
 namespace SeverGame106.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241128074000_addIsdeleted")]
+    partial class addIsdeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -330,7 +333,33 @@ namespace SeverGame106.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SeverGame106.Models.GameLevel", b =>
+            modelBuilder.Entity("SeverGame106.Models.LevelResult", b =>
+                {
+                    b.Property<int>("QuizResultId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuizResultId"));
+
+                    b.Property<DateOnly>("CompletionDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("LevelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuizResultId");
+
+                    b.ToTable("LevelResults");
+                });
+
+            modelBuilder.Entity("lab2.Models.GameLevel", b =>
                 {
                     b.Property<int>("LevelId")
                         .ValueGeneratedOnAdd()
@@ -365,32 +394,6 @@ namespace SeverGame106.Migrations
                             LevelId = 3,
                             title = "Cấp độ 3"
                         });
-                });
-
-            modelBuilder.Entity("SeverGame106.Models.LevelResult", b =>
-                {
-                    b.Property<int>("QuizResultId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuizResultId"));
-
-                    b.Property<DateOnly>("CompletionDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("LevelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("QuizResultId");
-
-                    b.ToTable("LevelResults");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

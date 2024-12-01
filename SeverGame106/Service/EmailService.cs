@@ -3,9 +3,7 @@ using MimeKit;
 using ServerGame106.Models;
 using MailKit.Net.Smtp;
 using SeverGame106.Models;
-
-
-namespace SeverGame106.Service
+namespace ServerGame106.Service
 {
     public interface IEmailService
     {
@@ -19,6 +17,7 @@ namespace SeverGame106.Service
         {
             _emailSettings = emailSettings.Value;
         }
+
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
             var emailMessage = new MimeMessage();
@@ -29,13 +28,10 @@ namespace SeverGame106.Service
             {
                 Text = message
             };
-
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort,
-                   MailKit.Security.SecureSocketOptions.StartTls);
+                await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort, MailKit.Security.SecureSocketOptions.StartTls);
                 await client.AuthenticateAsync(_emailSettings.UserName, _emailSettings.Password);
-
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }

@@ -1,4 +1,4 @@
-﻿using lab2.Models;
+﻿using SeverGame106.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ServerGame106.Models;
